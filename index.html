@@ -1,0 +1,143 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#1e7b4f"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-192.png"><title>NutriMaroc</title>
+<style>
+:root{--bg:#f4f6f8;--cd:#fff;--tx:#1b2433;--mu:#6b7585;--ac:#1e7b4f;--bd:#e1e5ea;--rd:#c0392b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12161c;--cd:#1c222b;--tx:#e8ecf1;--mu:#9aa5b4;--ac:#3fb67e;--bd:#2b3340;--rd:#e5675a}}
+:root[data-theme="dark"]{--bg:#12161c;--cd:#1c222b;--tx:#e8ecf1;--mu:#9aa5b4;--ac:#3fb67e;--bd:#2b3340;--rd:#e5675a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px system-ui,-apple-system,Roboto,sans-serif;padding-bottom:76px}
+.c{background:var(--cd);border:1px solid var(--bd);border-radius:14px;padding:12px;margin:10px 12px;max-width:100%;box-sizing:border-box}
+.r{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 0;border-top:1px solid var(--bd)}
+.h{border:0;padding:0}small{color:var(--mu)}
+.bar{height:8px;background:var(--bd);border-radius:4px;overflow:hidden;margin:4px 0}.bar i{display:block;height:100%;background:var(--ac)}
+input,select{font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:10px;width:100%;box-sizing:border-box;margin:4px 0}
+.bt{background:var(--ac);color:#fff;border:0;border-radius:10px;padding:8px 14px;font:inherit;font-weight:600}.g{background:var(--mu)}
+.x{background:none;border:0;color:var(--mu);font-size:16px}
+.ch{border:1px solid var(--bd);background:var(--bg);color:var(--tx);border-radius:20px;padding:6px 14px;font:inherit}.ch.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--cd);border-top:1px solid var(--bd);padding-bottom:env(safe-area-inset-bottom,0px)}
+nav button{flex:1;border:0;background:none;color:var(--mu);padding:8px 0;font-size:11px}nav button.on{color:var(--ac);font-weight:700}nav b{display:block;font-size:20px}
+#m{position:fixed;inset:0;background:#0009;display:none;align-items:flex-end}#m.on{display:flex}
+#m>div{background:var(--cd);width:100%;border-radius:18px 18px 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom,0px));box-sizing:border-box}
+.hs{display:flex;align-items:flex-end;gap:6px;height:90px}.hs div{flex:1;text-align:center;font-size:10px;color:var(--mu)}.hs i{display:block;background:var(--ac);border-radius:4px 4px 0 0}
+</style></head><body><div id="v"></div><div id="m"></div>
+<nav><button onclick="tab=0;go()"><b>📅</b>Jour</button><button onclick="tab=1;go()"><b>🔎</b>Aliments</button><button onclick="tab=2;go()"><b>🍽️</b>Menus</button><button onclick="tab=3;go()"><b>🗓️</b>Semaine</button><button onclick="tab=4;go()"><b>🎯</b>Objectifs</button></nav>
+<script>
+const D=`Œuf entier|143|12.6|0.7|9.5
+Blanc d'œuf|52|10.9|0.7|0.2
+Poulet poitrine cuit|165|31|0|3.6
+Poulet cuisse sans peau cuit|185|27|0|8
+Bœuf maigre cuit|190|29|0|8
+Kefta maigre cuite|215|26|0|12
+Agneau maigre cuit|230|28|0|13
+Dinde cuite|145|30|0|2.5
+Sardines grillées|185|25|0|9
+Poisson blanc cuit|105|22|0|1.5
+Thon au naturel|115|26|0|1
+Crevettes cuites|99|24|0.2|0.3
+Yaourt grec 0%|59|10.3|3.6|0.4
+Lben|40|3.3|4.8|0.9
+Lait demi-écrémé|46|3.4|4.8|1.6
+Lait entier|61|3.2|4.8|3.3
+Fromage type gouda|356|25|2.2|27
+Lentilles cuites|116|9|20|0.4
+Pois chiches cuits|164|8.9|27.4|2.6
+Fèves cuites|110|7.6|19.7|0.4
+Loubia cuite|139|9.7|25|0.5
+Riz blanc cuit|130|2.7|28|0.3
+Riz complet cuit|123|2.7|25.6|1
+Pâtes cuites|158|5.8|31|0.9
+Pâtes complètes cuites|124|5.3|26.5|0.5
+Couscous cuit|112|3.8|23.2|0.2
+Pommes de terre cuites|87|1.9|20|0.1
+Patate douce cuite|90|2|21|0.2
+Khobz|255|8.5|52|1.5
+Pain complet|240|9|46|2
+Flocons d'avoine|380|13|67|6.5
+Frites|312|3.4|41|15
+Légumes cuits (tajine)|30|1.5|6|0.2
+Légumes verts cuits|33|2.8|5|0.4
+Salade marocaine|40|1|5|2
+Zaalouk|85|1.5|7|5.5
+Taktouka|70|1.5|6|4.5
+Harira (bol)|70|3.8|9.5|1.8
+Tomate|18|0.9|3.9|0.2
+Concombre|15|0.7|3.6|0.1
+Carotte|41|0.9|9.6|0.2
+Courgette|17|1.2|3.1|0.3
+Aubergine|25|1|5.9|0.2
+Poivron|31|1|6|0.3
+Oignon|40|1.1|9.3|0.1
+Orange|47|0.9|11.8|0.1
+Mandarine|53|0.8|13.3|0.3
+Pomme|52|0.3|13.8|0.2
+Poire|57|0.4|15|0.1
+Banane|89|1.1|22.8|0.3
+Raisin|69|0.7|18|0.2
+Fraises|32|0.7|7.7|0.3
+Pastèque|30|0.6|7.6|0.2
+Melon|34|0.8|8.2|0.2
+Dattes|281|1.8|68|0.2
+Figue fraîche|74|0.8|19|0.3
+Huile d'olive|884|0|0|100
+Beurre|717|0.9|0.1|81
+Amandes|579|21|22|50
+Noix|654|15|14|65
+Cacahuètes|567|26|16|49
+Olives vertes|145|1|4|15
+Avocat|160|2|8.5|15
+Mayonnaise|680|1|0.6|75
+Thé menthe sans sucre|1|0|0.2|0
+Sucre|400|0|100|0
+Miel|304|0.3|82|0
+Jus d'orange|45|0.7|10.4|0.2
+Soda cola|42|0|10.6|0
+Chocolat noir 70%|598|7.8|46|43
+Biscuits secs|450|6|70|16
+Whey (poudre)|400|80|7|6`.split("\n").map(l=>{const a=l.split("|");return{n:a[0],k:+a[1],p:+a[2],g:+a[3],l:+a[4]}});
+const MEALS=[["pd","Petit-déjeuner","🍳"],["c1","Collation matin","🍎"],["dj","Déjeuner","🍲"],["c2","Collation pré-séance","🍌"],["di","Dîner","🐟"]];
+const MN={m:{t:"Menu muscu",pd:"Œuf entier:100;Blanc d'œuf:60;Huile d'olive:5;Pain complet:60;Orange:150",c1:"Yaourt grec 0%:150;Amandes:15",dj:"Poulet poitrine cuit:130;Légumes cuits (tajine):250;Huile d'olive:8;Riz blanc cuit:150;Salade marocaine:120",c2:"Banane:120;Dattes:25;Lben:250",di:"Sardines grillées:130;Pommes de terre cuites:150;Légumes verts cuits:200;Huile d'olive:5"},
+r:{t:"Menu repos / cardio",pd:"Flocons d'avoine:30;Yaourt grec 0%:150;Pomme:150;Amandes:10",c1:"Œuf entier:100;Orange:150",dj:"Bœuf maigre cuit:110;Lentilles cuites:180;Légumes cuits (tajine):200;Huile d'olive:8;Salade marocaine:120",c2:"Thon au naturel:60;Pain complet:30",di:"Poisson blanc cuit:150;Riz complet cuit:120;Zaalouk:150"}};
+let S;try{S=JSON.parse(localStorage.getItem("nm1"))}catch(e){}S=S||{};S.p=S.p||{a:40,w:72,h:167,f:1.45,d:400,pg:2,lg:.8,b:100,j:4};S.c=S.c||[];S.l=S.l||{};
+const save=()=>{try{localStorage.setItem("nm1",JSON.stringify(S))}catch(e){}},$=i=>document.getElementById(i),all=()=>D.concat(S.c),find=n=>all().find(x=>x.n==n),R=Math.round;
+const iso=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+let tab=0,dt=iso(new Date()),addTo=0,addM=0,sel,Q="",ST=0,wk=0,shop=0;const SES=["Repos actif","Upper 1","Lower 1","Cardio zone 2","Upper 2","Lower 2","Intervalles"],defT=d=>[1,2,4,5].includes(d.getDay())?"m":"r";
+const day=(k=dt)=>S.l[k]||(S.l[k]={t:defT(new Date(k+"T12:00")),e:[]});
+const T=t=>{const p=S.p,bmr=10*p.w+6.25*p.h-5*p.a+5,base=bmr*p.f-p.d,k=R(t=="m"?base+p.b:base-p.b*p.j/(7-p.j)),P=R(p.pg*p.w),L=R(p.lg*p.w);return{bmr,td:bmr*p.f,k,P,L,G:R((k-4*P-9*L)/4)}};
+const calc=(f,g)=>({k:f.k*g/100,p:f.p*g/100,g:f.g*g/100,l:f.l*g/100});
+const sum=es=>es.reduce((s,e)=>{const f=find(e.f);if(!f)return s;const c=calc(f,e.g);return{k:s.k+c.k,p:s.p+c.p,g:s.g+c.g,l:s.l+c.l}},{k:0,p:0,g:0,l:0});
+const parse=s=>s.split(";").map(x=>{const a=x.split(":");return{f:a[0],g:+a[1]}});
+const mac=(n,v,t)=>`<div><small>${n} ${R(v)} / ${t} g</small><div class=bar><i style="width:${Math.min(100,v/t*100)}%"></i></div></div>`;
+S.mn=S.mn||Object.fromEntries(Object.keys(MN).map(k=>[k,{t:MN[k].t,...Object.fromEntries(MEALS.map(m=>[m[0],parse(MN[k][m[0]])]))}]));
+const norm=s=>s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+function vDay(){const d=day(),t=T(d.t),s=sum(d.e),o=s.k>t.k;
+return `<div class=c><div class="r h"><button class=bt onclick="mv(-1)">‹</button><b>${new Date(dt+"T12:00").toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"short"})}</b><button class=bt onclick="mv(1)">›</button></div>
+<div class="r h" style="justify-content:center;margin-top:8px"><button class="ch ${d.t=="m"?"on":""}" onclick="st('m')">💪 Muscu</button><button class="ch ${d.t=="r"?"on":""}" onclick="st('r')">😴 Repos / cardio</button></div></div>
+<div class=c><div style="font-size:30px;font-weight:700">${R(s.k)} <small style="font-size:14px">/ ${t.k} kcal</small></div><div class=bar style="height:12px"><i style="width:${Math.min(100,s.k/t.k*100)}%;background:${o?"var(--rd)":""}"></i></div><small>${o?"Dépassé de "+R(s.k-t.k):"Reste "+R(t.k-s.k)} kcal</small>
+${mac("Protéines",s.p,t.P)}${mac("Glucides",s.g,t.G)}${mac("Lipides",s.l,t.L)}</div>`+
+MEALS.map(([id,n,ic])=>{const es=d.e.map((e,i)=>({...e,i})).filter(e=>e.m==id);return `<div class=c><div class="r h"><b>${ic} ${n}</b><span>${R(sum(es).k)} kcal <button class=bt onclick="ad('${id}')">＋</button></span></div>`+es.map(e=>{const f=find(e.f);return f?`<div class=r><span>${e.f} <small>${e.g} g</small></span><span>${R(calc(f,e.g).k)} kcal <button class=x onclick="del(${e.i})">✕</button></span></div>`:""}).join("")+"</div>"}).join("")}
+function vFood(){const mn=MEALS.find(x=>x[0]==addTo);return (addTo?`<div class=c>Ajout à <b>${mn[1]}</b>${addM?" du <b>"+S.mn[addM].t+"</b>":""} <button class=x onclick="addTo=addM=0;go()">annuler</button></div>`:"")+`<div class=c><button class=bt onclick="sc()">📷 Scanner un code-barres</button><input id=bc inputmode=numeric placeholder="ou saisir le code-barres"><button class=bt onclick="lk($('bc').value)">Chercher</button></div><div class=c><input id=q placeholder="Rechercher : riz, poulet, banane..." oninput="Q=this.value;fl()" value="${Q}"><div id=fl></div></div>
+<div class=c><b>Ajouter mon aliment</b><small> (valeurs pour 100 g)</small><input id=cn placeholder="Nom"><input id=ck type=number inputmode=decimal placeholder="kcal"><input id=cp type=number inputmode=decimal placeholder="Protéines g"><input id=cg type=number inputmode=decimal placeholder="Glucides g"><input id=cl type=number inputmode=decimal placeholder="Lipides g"><button class=bt onclick="nf()">Enregistrer</button></div>`}
+function fl(){const q=norm(Q),a=all();$("fl").innerHTML=a.map((f,i)=>[f,i]).filter(([f])=>norm(f.n).includes(q)).slice(0,60).map(([f,i])=>`<div class=r onclick="op(${i})"><span>${f.n}<br><small>P ${f.p} · G ${f.g} · L ${f.l}</small></span><b>${f.k} kcal</b></div>`).join("")||"<small>Aucun résultat</small>"}
+function nf(){const n=$("cn").value.trim(),k=+$("ck").value;if(!n||!k)return alert("Nom et kcal requis");S.c.push({n,k,p:+$("cp").value,g:+$("cg").value,l:+$("cl").value});save();Q=n;go()}
+function op(i){const f=all()[i];sel=f;$("m").innerHTML=`<div><b>${f.n}</b> <small>${f.k} kcal / 100 g</small><input id=gi type=number inputmode=decimal value=100 oninput=up()><div id=rs style="padding:8px 0"></div><select id=ms>${MEALS.map(x=>`<option value=${x[0]} ${x[0]==(addTo||"dj")?"selected":""}>${x[1]}</option>`).join("")}</select><small>Menu</small><select id=mt>${Object.keys(S.mn).map(k=>`<option value=${k} ${k==(addM||day().t)?"selected":""}>${S.mn[k].t}</option>`).join("")}</select><div class="r h" style="margin-top:8px;flex-wrap:wrap"><button class=bt onclick="put()">Ajouter à ce jour</button><button class=bt onclick="pm()">Ajouter au menu</button><button class="bt g" onclick="cl()">Fermer</button></div></div>`;$("m").className="on";up()}
+function up(){const c=calc(sel,+$("gi").value||0);$("rs").innerHTML=`<b style="font-size:22px">${R(c.k)} kcal</b><br><small>Protéines ${c.p.toFixed(1)} g · Glucides ${c.g.toFixed(1)} g · Lipides ${c.l.toFixed(1)} g</small>`}
+function put(){const g=+$("gi").value;if(!g)return;day().e.push({m:$("ms").value,f:sel.n,g});save();cl();addTo=addM=0;tab=0;go()}
+function pm(){const g=+$("gi").value;if(!g)return;S.mn[$("mt").value][$("ms").value].push({f:sel.n,g});save();cl();addTo=addM=0;tab=2;go()}
+function vMenu(){return Object.keys(S.mn).map(k=>{const M=S.mn[k],s=sum([].concat(...MEALS.map(x=>M[x[0]])));return `<div class=c><div class="r h"><b>${M.t}</b><b>${R(s.k)} kcal</b></div><small>Protéines ${R(s.p)} g · Glucides ${R(s.g)} g · Lipides ${R(s.l)} g</small>`+MEALS.map(x=>`<div class=r style="display:block"><div class="r h"><b>${x[2]} ${x[1]}</b><span><small>${R(sum(M[x[0]]).k)} kcal</small> <button class=bt onclick="am('${k}','${x[0]}')">＋</button></span></div>`+M[x[0]].map((e,i)=>`<div class="r h"><small onclick="eg('${k}','${x[0]}',${i})">${e.f} · ${e.g} g ✎</small><button class=x onclick="dm('${k}','${x[0]}',${i})">✕</button></div>`).join("")+"</div>").join("")+`<button class=bt style="margin-top:8px" onclick="ap('${k}')">Appliquer à ce jour</button></div>`}).join("")}
+const wd=()=>[0,1,2,3,4,5,6].map(i=>{const x=new Date();x.setDate(x.getDate()-((x.getDay()+6)%7)+7*wk+i);return x});
+function vWeek(){const ds=wd(),A={};let ts=0,tt=0;const rows=ds.map(d=>{const k=iso(d),o=S.l[k],t=o?o.t:defT(d),s=o?sum(o.e).k:0,c=T(t).k;ts+=s;tt+=c;(o?o.e:[]).forEach(e=>A[e.f]=(A[e.f]||0)+e.g);return `<div class=c style="margin:6px 12px"><div class="r h" onclick="dt='${k}';tab=0;go()"><span><b>${d.toLocaleDateString("fr-FR",{weekday:"short",day:"numeric"})}</b> <small>${SES[d.getDay()]}</small></span><span>${t=="m"?"💪":"😴"} ${s?R(s):"vide"} / ${c}</span></div><div class="r h" style="margin-top:6px"><button class=ch onclick="ap('m','${k}')">Menu muscu</button><button class=ch onclick="ap('r','${k}')">Menu repos</button><button class=ch onclick="vd('${k}')">Vider</button></div></div>`}).join("");
+return `<div class=c><div class="r h"><button class=bt onclick="wk--;go()">‹</button><b>Semaine du ${ds[0].toLocaleDateString("fr-FR",{day:"numeric",month:"short"})}</b><button class=bt onclick="wk++;go()">›</button></div><small>Planifié ${R(ts/7)} kcal/jour · cible ${R(tt/7)} kcal/jour</small><div class="r h" style="margin-top:8px"><button class=bt onclick="fw()">Remplir les jours vides</button><button class="bt g" onclick="shop=!shop;go()">🛒 Courses</button></div></div>`+(shop?`<div class=c><b>Liste de courses</b> <small>(poids cuit pour viandes, féculents, légumineuses)</small>${Object.keys(A).sort().map(f=>`<div class=r><span>${f}</span><b>${R(A[f])} g</b></div>`).join("")||"<small>Aucun repas planifié</small>"}</div>`:"")+rows}
+function vObj(){const F=[["a","Âge (ans)"],["w","Poids (kg)"],["h","Taille (cm)"],["f","Facteur d'activité (1,2 à 1,6)"],["d","Déficit (kcal/jour)"],["pg","Protéines (g/kg)"],["lg","Lipides (g/kg)"],["b","Ajustement jour muscu (kcal)"],["j","Jours de muscu / semaine"]],m=T("m"),r=T("r");
+const H=[6,5,4,3,2,1,0].map(i=>{const x=new Date();x.setDate(x.getDate()-i);const k=iso(x),d=S.l[k],kc=d?sum(d.e).k:0,t=T(d?d.t:"r").k;return `<div><i style="height:${Math.min(100,kc/t*80)}px;${kc>t?"background:var(--rd)":""}"></i>${x.toLocaleDateString("fr-FR",{weekday:"narrow"})}<br>${kc?R(kc):"-"}</div>`}).join("");
+return `<div class=c><b>Mes paramètres</b>${F.map(([k,n])=>`<small>${n}</small><input type=number inputmode=decimal step=any value="${S.p[k]}" onchange="sp('${k}',this.value)">`).join("")}</div>
+<div class=c><b>Résultats</b><div class=r><span>Métabolisme de base</span><b>${R(m.bmr)} kcal</b></div><div class=r><span>Besoin de maintien</span><b>${R(m.td)} kcal</b></div><div class=r><span>Jour muscu</span><b>${m.k} kcal · P ${m.P} · G ${m.G} · L ${m.L}</b></div><div class=r><span>Jour repos</span><b>${r.k} kcal · P ${r.P} · G ${r.G} · L ${r.L}</b></div><div class=r><span>Perte estimée</span><b>${(S.p.d*7/7700).toFixed(2)} kg / semaine</b></div><small>Estimations générales (Mifflin-St Jeor), pas un avis médical.</small></div>
+<div class=c><b>7 derniers jours</b> <small>(rouge = au-dessus de la cible)</small><div class=hs>${H}</div></div>`}
+function go(){$("v").innerHTML=[vDay,vFood,vMenu,vWeek,vObj][tab]();if(tab==1)fl();document.querySelectorAll("nav button").forEach((b,i)=>b.className=i==tab?"on":"");scrollTo(0,0)}
+function mv(n){const d=new Date(dt+"T12:00");d.setDate(d.getDate()+n);dt=iso(d);go()}
+function st(t){day().t=t;save();go()}function del(i){day().e.splice(i,1);save();go()}function ad(id){addTo=id;addM=0;tab=1;go()}function am(k,id){addM=k;addTo=id;tab=1;go()}function dm(k,m,i){S.mn[k][m].splice(i,1);save();go()}function eg(k,m,i){const e=S.mn[k][m][i],v=prompt('Quantité (g) : '+e.f,e.g);if(v&&+v>0){e.g=+v;save();go()}}function vd(k){delete S.l[k];save();go()}function fw(){wd().forEach(d=>{const k=iso(d);if(!(S.l[k]&&S.l[k].e.length))ap(defT(d),k)})}
+function ap(k,x){const d=day(x||dt);d.t=k;d.e=[].concat(...MEALS.map(m=>S.mn[k][m[0]].map(e=>({m:m[0],...e}))));save();if(!x)tab=0;go()}
+function sp(k,v){S.p[k]=+v;save();go()}function cl(){if(ST){ST.getTracks().forEach(t=>t.stop());ST=0}$("m").className=""}
+async function sc(){if(!("BarcodeDetector"in window))return alert("Scan non pris en charge par ce navigateur : saisissez le code-barres.");try{const s=await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"}});$("m").innerHTML='<div><video id=vd2 playsinline autoplay muted style="width:100%;border-radius:12px"></video><button class="bt g" onclick="cl()">Annuler</button></div>';$("m").className="on";ST=s;const v=$("vd2"),bd=new BarcodeDetector({formats:["ean_13","ean_8","upc_a","upc_e"]}),t=async()=>{if(!ST)return;try{const b=await bd.detect(v);if(b.length){const c=b[0].rawValue;cl();return lk(c)}}catch(e){}setTimeout(t,300)};v.onplaying=t;v.srcObject=s;v.play()}catch(e){alert("Caméra indisponible ou refusée.")}}
+async function lk(code){code=(code||"").trim();if(!code)return;let i=all().findIndex(f=>f.bc==code);if(i<0){try{const r=await fetch("https://world.openfoodfacts.org/api/v2/product/"+code+".json?fields=product_name,nutriments"),j=await r.json();if(j.status!=1)throw 0;const n=j.product.nutriments,k=n["energy-kcal_100g"]??n.energy_100g/4.184;if(!(k>=0))throw 0;S.c.push({n:j.product.product_name||"Produit "+code,k:R(k),p:+n.proteins_100g||0,g:+n.carbohydrates_100g||0,l:+n.fat_100g||0,bc:code});save();i=all().length-1}catch(e){return alert("Produit introuvable, ou recherche en ligne indisponible (hors connexion ou version web limitée). Ajoutez-le à la main.")}}tab=1;go();op(i)}
+if("serviceWorker"in navigator)addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+$("m").onclick=e=>{if(e.target==$("m"))cl()};go();
+</script></body></html>

@@ -1,0 +1,17 @@
+NUTRIMAROC - version installable (hors connexion)
+
+1) HÉBERGER (gratuit, HTTPS obligatoire)
+   - Netlify Drop : allez sur app.netlify.com/drop et glissez le dossier décompressé. Vous obtenez une adresse https.
+   - ou GitHub Pages : déposez les 5 fichiers dans un dépôt, puis Settings > Pages.
+
+2) INSTALLER SUR ANDROID (sans APK)
+   Ouvrez l'adresse dans Chrome > menu ⋮ > "Installer l'application". L'appli fonctionne ensuite hors connexion.
+
+3) OBTENIR UN FICHIER APK
+   - Allez sur pwabuilder.com, collez l'adresse https de votre appli, cliquez "Package for stores" > Android.
+   - Téléchargez le paquet : il contient un APK à installer sur le téléphone (autoriser les sources inconnues) et un AAB pour le Play Store.
+
+4) HORS CONNEXION ET CODE-BARRES
+   - Le suivi, les menus, le planning et les aliments déjà enregistrés fonctionnent sans internet.
+   - Le scan utilise la caméra (Chrome Android). La fiche d'un nouveau produit est cherchée sur Open Food Facts : connexion nécessaire la première fois ; le produit est ensuite enregistré dans vos aliments.
+   - Les données restent sur le téléphone (pas de synchronisation entre appareils).
